@@ -2,6 +2,6 @@ import { NodeInput, GraphNode } from './base';
 // import { FunctionWrapperNode } from './functionwrapper';
 import * as input from './inputnodes';
 import * as math from './mathnodes';
-import * as tone from './tonenodes';
+import * as audio from './audio';
 
-export { NodeInput, GraphNode, input, math, tone };
+export { NodeInput, GraphNode, input, math, audio };

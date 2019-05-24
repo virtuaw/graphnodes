@@ -1,5 +1,4 @@
 import { NodeInput, GraphNode, input } from '..';
-import Tone from 'tone';
 
 /**
  * Harmonize Node
@@ -13,12 +12,12 @@ import Tone from 'tone';
  */
 export default class HarmonizeNode extends GraphNode<HarmonizeArgs, HarmonizeResult> {
   public title: string = 'Harmonize Title';
-  public inputs: Array<Tone.Note | number> = [
-    new NodeInput<Tone.Note>('Note', new Tone.Midi(0)),
-    new NodeInput<number[]>('Interval', [0, 3, 5])
+  public inputs: Array<NodeInput<HarmonizeArgs>> = [
+    new NodeInput<number>('Note', 0),
+    new NodeInput<number[]>('Intervals', [0, 3, 5])
   ];
-  public calc = (note, intervals) => note.harmonize(intervals);
+  public calc = (note, intervals) => intervals.map((interval) => note + interval);
 }
 
-type HarmonizeArgs = Tone.Note | number[];
-type HarmonizeResult = Tone.Note[];
+type HarmonizeArgs = number | number[];
+type HarmonizeResult = number[];
