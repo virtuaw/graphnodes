@@ -13,8 +13,8 @@
     "postversion": "git push && git push --tags",
     "prepublishOnly": "npm ci",
     "preversion": "npm ci",
-    "link": "tsc && copy /Y package.json dist && copy /Y README.md dist && cd dist && npm link",
-    "dist": "tsc && copy /Y package.json dist && copy /Y README.md dist && cd dist && npm publish"
+    "link": "tsc && cp package.json dist && cp README.md dist && cd dist && npm link",
+    "dist": "tsc && cp package.json dist && cp README.md dist && cd dist && npm publish"
   },
   "repository": {
     "type": "git",
