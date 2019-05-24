@@ -1,0 +1,33 @@
+{
+  "name": "@virtuaw/graphnodes",
+  "version": "0.0.1",
+  "description": "Graph based computation for graphical programming interfaces",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "lint": "tslint --project \"./tsconfig.json\"",
+    "postversion": "git push && git push --tags",
+    "prepublishOnly": "npm run ci",
+    "preversion": "npm run ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.lnc.lt:virtuaw/virtuaw-graphnodes"
+  },
+  "keywords": [
+    "graph",
+    "computation",
+    "graphnodes",
+    "virtuaw-graphnodes",
+    "virtuaw"
+  ],
+  "author": "Tibor Pilz",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.0.2",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
+  }
+}
