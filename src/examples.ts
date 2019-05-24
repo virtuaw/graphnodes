@@ -1,4 +1,4 @@
-import { NodeInput, GraphNode, input, math, tone } from './index';
+import { NodeInput, GraphNode, input, math, audio } from './index';
 
 const { NumberNode } = input;
 
@@ -12,10 +12,10 @@ const test = new GraphNode<number, string>(
 
 console.log('Test node:', test, test.call());
 
-const note = new tone.ToneNode(15);
+const note = new input.NumberNode(15);
 
 const interval = new input.NumberNode([0, 3, 5, 8, 9]);
-const harmonize = new tone.HarmonizeNode();
+const harmonize = new audio.HarmonizeNode();
 console.log(harmonize);
 
 harmonize.connect(0, note);
