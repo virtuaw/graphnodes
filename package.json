@@ -2,7 +2,7 @@
   "name": "@virtuaw/graphnodes",
   "version": "0.1.3",
   "description": "Graph based computation for graphical programming interfaces",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
@@ -11,8 +11,6 @@
     "bundle:watch": "tsc-bundle \"./tsconfig.json\" --watch",
     "lint": "tslint --project \"./tsconfig.json\"",
     "postversion": "git push && git push --tags",
-    "prepublishOnly": "npm ci",
-    "preversion": "npm ci",
     "link": "tsc && cp package.json dist && cp README.md dist && cd dist && npm link",
     "dist": "tsc && cp package.json dist && cp README.md dist && cd dist && npm publish"
   },
