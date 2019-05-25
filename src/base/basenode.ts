@@ -5,8 +5,8 @@ import NodeInput from './nodeinput';
  *
  * @param title
  */
-export default class GraphNode<I, O> {
-  public title = 'Graph Node';
+export default class BaseNode<I, O> {
+  public title = 'Base Node';
   public inputs: Array<NodeInput<I>> = [];
   public output = 'Output';
 

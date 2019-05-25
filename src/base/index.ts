@@ -1,4 +1,4 @@
-import GraphNode from './graphnode';
+import BaseNode from './basenode';
 import NodeInput from './nodeinput';
 
-export { NodeInput, GraphNode };
+export { BaseNode, NodeInput };

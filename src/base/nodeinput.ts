@@ -1,4 +1,4 @@
-import GraphNode from './graphnode';
+import BaseNode from './basenode';
 
 /**
  * Node Input
@@ -8,7 +8,7 @@ import GraphNode from './graphnode';
  * @typeparam I Input type.
  */
 export default class NodeInput<I> {
-  public node: GraphNode<any, I>|null = null;
+  public node: BaseNode<any, I>|null = null;
 
   /**
    * @param title: The input's title.
@@ -42,7 +42,7 @@ export default class NodeInput<I> {
    *
    * @param node: Another node
    */
-  public connect(node: GraphNode<any, I>): void {
+  public connect(node: BaseNode<any, I>): void {
     if (!this.allowConnection) {
       return;
     }

@@ -1,11 +1,11 @@
-import { NodeInput, GraphNode, input, math, audio } from './index';
+import { BaseNode, NodeInput, input, math, audio } from './index';
 
 const { NumberNode } = input;
 
 const numberA = new NumberNode(5);
 const numberB = new NumberNode(2);
 
-const test = new GraphNode<number, string>(
+const test = new BaseNode<number, string>(
   [new NodeInput<number>('a', 0), new NodeInput<number>('a', 0)],
   (a, b) => a.toString() + ', ' + b.toString()
 );
