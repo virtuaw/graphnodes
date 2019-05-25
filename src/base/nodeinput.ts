@@ -1,14 +1,15 @@
 import BaseNode from './basenode';
+import NodeConnector from './nodeconnector';
+import NodeOutput from './nodeoutput';
 
 /**
  * Node Input
  *
- * Represents a Node's input sockets.
- *
- * @typeparam I Input type.
+ * Represents a Node's input socket.
  */
-export default class NodeInput<I> {
-  public node: BaseNode<any, I>|null = null;
+export default class NodeInput extends NodeConnector {
+  public connection: NodeOutput = null;
+  public connectorType = 'input';
 
   /**
    * @param title: The input's title.
@@ -18,35 +19,64 @@ export default class NodeInput<I> {
    */
   constructor(
     public title: string = 'Input',
-    public defaultValue: I = null as I,
+    public defaultValue: any = null,
     public allowInput: boolean = false,
     public allowConnection: boolean = true
-  ) { }
+  ) {
+    super();
+  }
 
   /**
    * Returns true if this input is connected to another node.
    */
   get connected() {
-    return !!this.node;
+    return !!this.connection;
   }
 
   /**
    * @returns value Either the connected node's output or the default value.
    */
   get value() {
-    return this.connected ? this.node.call() : this.defaultValue;
+    return this.connected ? this.connection.value : this.defaultValue;
   }
 
   /**
-   * Connects this input to another node.
+   * Connects this input to another output.
    *
-   * @param node: Another node
+   * @param output: The input to be connected to.
+   *
+   * @returns success: boolean indicating whether the connection
+   *                   was successful.
    */
-  public connect(node: BaseNode<any, I>): void {
-    if (!this.allowConnection) {
-      return;
+  public connect(output): boolean {
+    if (output.isInput) {
+      return false;
     }
 
-    this.node = node;
+    this.connection = output;
+    this.connection.connect(this);
+    return true;
+  }
+
+  /**
+   * Disconnects this input from existing connection
+   */
+  public disconnect() {
+    if (this.connected) {
+      const connection = this.connection;
+      this.connection = null;
+      connection.disconnect(this);
+    }
+  }
+
+  /**
+   * Compability alias
+   */
+  public disconnectAll() {
+    this.disconnect();
+  }
+
+  get connections() {
+    return [this.connection];
   }
 }
