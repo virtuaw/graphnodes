@@ -1,4 +1,4 @@
-import { NodeInput, GraphNode, input } from '..';
+import { BaseNode, NodeInput, input } from '..';
 import Wad from 'web-audio-daw';
 
 /**
@@ -7,7 +7,7 @@ import Wad from 'web-audio-daw';
  * Outputs a Note in string notation based on a midi note
  * as number from either user or node input.
  */
-export default class MidiNoteNode extends GraphNode<number, string> {
+export default class MidiNoteNode extends BaseNode<number, string> {
   public title = 'Midi Note';
   public output = 'Note';
   public inputs: Array<NodeInput<number>> = [

@@ -1,6 +1,6 @@
-import { NodeInput, GraphNode } from '.';
+import { BaseNode, NodeInput } from '.';
 
-export class InputNode<T> extends GraphNode<T, T> {
+export class InputNode<T> extends BaseNode<T, T> {
   public title = 'Input';
   public output = 'Value';
 

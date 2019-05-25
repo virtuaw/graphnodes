@@ -1,4 +1,4 @@
-import { NodeInput, GraphNode, input } from '..';
+import { BaseNode, NodeInput, input } from '..';
 
 /**
  * Harmonize Node
@@ -10,7 +10,7 @@ import { NodeInput, GraphNode, input } from '..';
  *
  * @returns chord The Chord as Array of Tone.Notes
  */
-export default class HarmonizeNode extends GraphNode<HarmonizeArgs, HarmonizeResult> {
+export default class HarmonizeNode extends BaseNode<HarmonizeArgs, HarmonizeResult> {
   public title: string = 'Harmonize Title';
   public inputs: Array<NodeInput<HarmonizeArgs>> = [
     new NodeInput<number>('Note', 0),
