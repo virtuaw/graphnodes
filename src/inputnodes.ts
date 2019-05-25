@@ -2,7 +2,6 @@ import { BaseNode, NodeInput } from '.';
 
 export class InputNode<T> extends BaseNode<T, T> {
   public title = 'Input';
-  public output = 'Value';
 
   constructor(public value: T|T[]) {
     super([], () => this.value);
@@ -11,12 +10,12 @@ export class InputNode<T> extends BaseNode<T, T> {
 
 export class StringNode extends InputNode<string> {
   public inputs = [
-    new NodeInput<string>('String', '', true, false)
+    new NodeInput('String', '', true, false)
   ];
 }
 
 export class NumberNode extends InputNode<number> {
   public inputs = [
-    new NodeInput<number>('Number', 0, true, false)
+    new NodeInput('Number', 0, true, false)
   ];
 }

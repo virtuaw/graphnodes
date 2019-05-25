@@ -12,9 +12,9 @@ import { BaseNode, NodeInput, input } from '..';
  */
 export default class HarmonizeNode extends BaseNode<HarmonizeArgs, HarmonizeResult> {
   public title: string = 'Harmonize Title';
-  public inputs: Array<NodeInput<HarmonizeArgs>> = [
-    new NodeInput<number>('Note', 0),
-    new NodeInput<number[]>('Intervals', [0, 3, 5])
+  public inputs: NodeInput[] = [
+    new NodeInput('Note', 0),
+    new NodeInput('Intervals', [0, 3, 5])
   ];
   public calc = (note, intervals) => intervals.map((interval) => note + interval);
 }

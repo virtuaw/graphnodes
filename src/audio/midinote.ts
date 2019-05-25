@@ -9,9 +9,8 @@ import Wad from 'web-audio-daw';
  */
 export default class MidiNoteNode extends BaseNode<number, string> {
   public title = 'Midi Note';
-  public output = 'Note';
-  public inputs: Array<NodeInput<number>> = [
-    new NodeInput<number>('Midi Number', 0, true, true)
+  public inputs: NodeInput[] = [
+    new NodeInput('Midi Number', 0, true, true)
   ];
 
   constructor(note: number = 12) {

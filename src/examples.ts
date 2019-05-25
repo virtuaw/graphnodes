@@ -6,7 +6,7 @@ const numberA = new NumberNode(5);
 const numberB = new NumberNode(2);
 
 const test = new BaseNode<number, string>(
-  [new NodeInput<number>('a', 0), new NodeInput<number>('a', 0)],
+  [new NodeInput('a', 0), new NodeInput('a', 0)],
   (a, b) => a.toString() + ', ' + b.toString()
 );
 
@@ -24,9 +24,9 @@ harmonize.connect(1, interval);
 console.log('Harmonize Node:', harmonize, harmonize.call());
 
 const sum = new math.SumNode([
-  new NodeInput<number>('a'),
-  new NodeInput<number>('b'),
-  new NodeInput<number>('c')
+  new NodeInput('a'),
+  new NodeInput('b'),
+  new NodeInput('c')
 ]);
 
 sum.connect(0, numberA);
