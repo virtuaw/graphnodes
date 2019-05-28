@@ -43,13 +43,13 @@ export default class NodeInput extends NodeConnector {
   /**
    * Connects this input to another output.
    *
-   * @param output: The input to be connected to.
+   * @param output: The output to be connected to.
    *
    * @returns success: boolean indicating whether the connection
    *                   was successful.
    */
   public connect(output): boolean {
-    if (output.isInput) {
+    if (output.isInput || this.connection === output) {
       return false;
     }
 

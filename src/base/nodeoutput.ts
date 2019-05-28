@@ -49,9 +49,9 @@ export default class NodeOutput extends NodeConnector {
       return false;
     }
 
-    this.connections.push(input);
     if (input.connection !== this) {
       input.connect(this);
+      this.connections.push(input);
     }
     return true;
   }
