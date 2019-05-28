@@ -30,6 +30,7 @@ test('Connecting/Disconnecting two Nodes', () => {
   testNodeA.output.connect(testNodeB.inputs[0]);
 
   expect(testNodeA.output.connections[0]).toBe(testNodeB.inputs[0]);
+  expect(testNodeA.output.connections.length).toBe(1);
   expect(testNodeB.inputs[0].connection).toBe(testNodeA.output);
 
   testNodeA.output.disconnectAll();
