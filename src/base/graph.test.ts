@@ -48,16 +48,17 @@ test('Adding input/output nodes and promotion/demotion', () => {
 test('Connecting Nodes and aggregating connections', () => {
   const testGraph = new Graph();
   const nodeInput = new NodeInput();
-
   const testNodeA = new BaseNode();
   const testNodeB = new BaseNode([nodeInput]);
 
+  // Add nodes and connect
   testGraph.addNode(testNodeA);
   testGraph.addNode(testNodeB);
   testNodeA.output.connect(testNodeB.inputs[0]);
 
   expect(testGraph.connections.length).toBe(1);
 
+  // Remove Node
   testGraph.removeNode(testNodeA);
   expect(testGraph.connections.length).toBe(0);
 });
