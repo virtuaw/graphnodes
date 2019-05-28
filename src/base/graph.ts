@@ -4,7 +4,7 @@ export default class Graph {
   public title = 'Graph';
   public nodes: Array<BaseNode<any, any>> = [];
   public inputNodes: Array<BaseNode<any, any>> = [];
-  public outputNodes: Array<BaseNode<any, any>> = [];
+  public outputNode: BaseNode<any, any> | null = null;
 
   /**
    * Get connections as connection from outputs to input.
@@ -27,12 +27,12 @@ export default class Graph {
   }
 
   /**
-   * Get all outputs from output nodes
+   * Get output from output node
    *
    * @returns: Array of NodeOutput instances.
    */
-  get outputs() {
-    return this.outputNodes.map((node) => node.output);
+  get output() {
+    return this.outputNode ? this.outputNode.output : null;
   }
 
   /**
@@ -78,7 +78,7 @@ export default class Graph {
    * @param node: Node to promote
    */
   public promoteOutput(node: BaseNode<any, any>) {
-    this.outputNodes.push(node);
+    this.outputNode = node;
   }
 
   /**
@@ -87,7 +87,7 @@ export default class Graph {
    * @param node: Node to demote
    */
   public demoteOutput(node: BaseNode<any, any>) {
-    this.outputNodes = this.outputNodes.filter((n) => n !== node);
+    this.outputNode = null;
   }
 
   /**

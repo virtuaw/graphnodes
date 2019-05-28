@@ -25,23 +25,24 @@ test('Adding input/output nodes and promotion/demotion', () => {
   const inputB = new NodeInput();
   const testNode = new BaseNode([inputA, inputB]);
 
+  // Add Node and promote to input
   testGraph.addNode(testNode);
   testGraph.promoteInput(testNode);
 
   expect(testGraph.inputNodes.length).toBe(1);
   expect(testGraph.inputs.length).toBe(2);
 
+  // Promote to output
   testGraph.promoteOutput(testNode);
 
-  expect(testGraph.outputNodes.length).toBe(1);
-  expect(testGraph.outputs.length).toBe(1);
+  expect(testGraph.outputNode).toBe(testNode);
 
+  // Remove node
   testGraph.removeNode(testNode);
 
-  expect(testGraph.outputNodes.length).toBe(0);
+  expect(testGraph.outputNode).toBe(null);
   expect(testGraph.inputNodes.length).toBe(0);
   expect(testGraph.inputs.length).toBe(0);
-  expect(testGraph.outputs.length).toBe(0);
 });
 
 test('Connecting Nodes and aggregating connections', () => {
