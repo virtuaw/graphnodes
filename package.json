@@ -1,6 +1,6 @@
 {
   "name": "@virtuaw/graphnodes",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Graph based computation for graphical programming interfaces",
   "main": "index.js",
   "scripts": {
