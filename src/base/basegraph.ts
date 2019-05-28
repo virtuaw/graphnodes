@@ -1,6 +1,6 @@
 import BaseNode from './basenode';
 
-export default class Graph {
+export default class BaseGraph {
   public title = 'Graph';
   public nodes: Array<BaseNode<any, any>> = [];
   public inputNodes: Array<BaseNode<any, any>> = [];
