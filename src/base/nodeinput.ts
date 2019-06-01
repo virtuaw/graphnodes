@@ -9,6 +9,7 @@ import NodeOutput from './nodeoutput';
  */
 export default class NodeInput extends NodeConnector {
   public connection: NodeOutput = null;
+  public node: BaseNode<any, any> = null;
   public connectorType = 'input';
 
   /**
@@ -21,7 +22,7 @@ export default class NodeInput extends NodeConnector {
     public title: string = 'Input',
     public defaultValue: any = null,
     public allowInput: boolean = false,
-    public allowConnection: boolean = true
+    public allowConnection: boolean = true,
   ) {
     super();
   }

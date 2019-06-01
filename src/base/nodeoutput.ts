@@ -10,6 +10,7 @@ import NodeInput from './nodeinput';
 export default class NodeOutput extends NodeConnector {
   public connections: NodeInput[] = [];
   public connectorType = 'output';
+  public oldValue = null;
 
   /**
    * @param node: The parent node of the output.
@@ -33,7 +34,9 @@ export default class NodeOutput extends NodeConnector {
    * @returns value Either the connected node's output or the default value.
    */
   get value() {
-    return this.node.call();
+    const value = this.node.call();
+    this.oldValue = value;
+    return value;
   }
 
   /**
