@@ -28,8 +28,10 @@
   "author": "Tibor Pilz",
   "license": "MIT",
   "dependencies": {
+    "@types/webmidi": "^2.0.3",
     "note-parser": "^2.0.1",
-    "tone": "^13.4.9"
+    "tone": "^13.4.9",
+    "webmidi": "^2.3.3"
   },
   "devDependencies": {
     "@types/expect-puppeteer": "^3.3.1",

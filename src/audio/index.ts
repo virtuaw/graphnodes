@@ -7,6 +7,7 @@ import {
   ReleaseListNode,
   NoteListNode
 } from './note';
+import { MidiInputDevicesNode, MidiDeviceInputNode } from './midi';
 
 export {
   HarmonizeNode,
@@ -15,5 +16,7 @@ export {
   NoteListDiffNode,
   AttackListNode,
   ReleaseListNode,
-  NoteListNode
+  NoteListNode,
+  MidiInputDevicesNode,
+  MidiDeviceInputNode
 };
