@@ -14,7 +14,7 @@ This library only contains the computational framework, the UI layer is kept abs
 Virtuaw-Graphnodes comes with a variety of default nodes.
 Let's create a simple calculation graph.
 
-```ts
+```js
 import * as vawGN from '@virtuaw/graphnodes';
 
 // Create two number nodes for the input values.
@@ -25,12 +25,12 @@ const numberB = new vawGN.input.NumberNode();
 const sum = new vawGN.math.SumNode();
 
 // Connect the number nodes to the summation node.
-sum.connect(0, numberA);
-Sum.connect(1, numberB);
+sum.connect(0, numberA.output);
+sum.connect(1, numberB.output);
 
 // Check values
-console.log(numberA.value) // 0
-console.log(numberB.value) // 0
+console.log(numberA.output.value) // 0
+console.log(numberB.output.value) // 0
 
 // Execute calculation
 console.log(sum.calc()); // 0
