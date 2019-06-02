@@ -7,18 +7,23 @@ import Wad from 'web-audio-daw';
  * Outputs a Note in string notation based on a midi note
  * as number from either user or node input.
  */
+
+function convertMidi(note: number) {
+  return Wad.pitchesArray[note - 12];
+}
 export default class MidiNoteNode extends BaseNode<number, string> {
-  public title = 'Midi Note';
-  public inputs: NodeInput[] = [
-    new NodeInput('Midi Number', 0, true, true)
-  ];
-
-  constructor(note: number = 12) {
-    super();
-    this.inputs[0].defaultValue = note;
+  constructor(
+    note: number = 12,
+    title: string = 'Midi Note'
+  ) {
+    super(
+      [new NodeInput('midi', note, true, true)],
+      convertMidi,
+      title
+    );
   }
+}
 
-  public calc(note: number) {
-    return Wad.pitchesArray[note - 12];
-  }
+export function createMidiNoteNode(note: number, title?) {
+  return new MidiNoteNode(note, title);
 }

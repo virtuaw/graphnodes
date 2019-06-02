@@ -70,14 +70,14 @@ export default class NodeInput extends NodeConnector {
     }
   }
 
-  /**
-   * Compability alias
-   */
   public disconnectAll() {
     this.disconnect();
   }
 
+  /**
+   * Compability alias
+   */
   get connections() {
-    return [this.connection];
+    return this.connected ? [this.connection] : [];
   }
 }
