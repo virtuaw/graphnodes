@@ -1,4 +1,5 @@
-import { BaseNode, NodeInput, input } from '..';
+import { BaseNode, NodeInput } from '../base';
+import * as input from '../inputnodes';
 
 /**
  * Harmonize Node

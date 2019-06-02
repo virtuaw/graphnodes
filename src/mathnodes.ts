@@ -1,4 +1,4 @@
-import { BaseNode, NodeInput } from '.';
+import { BaseNode, NodeInput } from './base';
 
 export abstract class ChainNode extends BaseNode<number|number[], number|number[]> {
   public call() {

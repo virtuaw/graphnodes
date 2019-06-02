@@ -1,4 +1,4 @@
-import { BaseNode, NodeInput } from '.';
+import { BaseNode, NodeInput } from './base';
 
 export class InputNode<T> extends BaseNode<T, T> {
   public title = 'Input';
