@@ -28,6 +28,7 @@
   "author": "Tibor Pilz",
   "license": "MIT",
   "dependencies": {
+    "tone": "^13.4.9",
     "web-audio-daw": "^4.5.0"
   },
   "devDependencies": {

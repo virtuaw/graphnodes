@@ -1,11 +1,11 @@
 import { BaseNode, NodeInput } from '../base';
 import Wad from 'web-audio-daw';
-import { Envelope } from './envelope';
-import { Filter } from './filter';
+import { Envelope, getDefaultEnvelope } from './envelope';
+import { Filter, getDefaultFilter } from './filter';
 import { Reverb } from './reverb';
-import { Delay } from './delay';
-import { Vibrato } from './vibrato';
-import { Tremolo } from './tremolo';
+import { Delay, getDefaultDelay } from './delay';
+import { Vibrato, getDefaultVibrato } from './vibrato';
+import { Tremolo, getDefaultTremolo } from './tremolo';
 import { convertMidi } from './midinote';
 
 type Source = 'sine' | 'triangle' | 'square' | 'sawtooth';
@@ -26,57 +26,21 @@ interface Synthesizer {
 }
 
 function getDefaultSynthesizer() {
-  const defaultEnvelope = {
-    attack: 0.0,
-    decay: 0.0,
-    sustain: 1.0,
-    hold: 3.14,
-    release: 0.0
-  } as Envelope;
-
-  const defaultFilter = {
-    type: 'lowpass',
-    frequency: 600,
-    q: 1,
-    env: {
-      frequency: 800,
-      attack: 0.5
-    }
-  } as Filter;
-
-  const defaultReverb = {
-    wet: 0.0
-  } as Reverb;
-
-  const defaultDelay = {
-    delayTime: 0.0,
-    wet: 0.0,
-    feedback: 0.0
-  } as Delay;
-
-  const defaultVibrato = {
-    shape: 'sine',
-    magnitude: 0,
-    speed: 2,
-    attack: 0
-  } as Vibrato;
-
-  const defaultTremolo = {
-    shape: 'sine',
-    magnitude: 0,
-    speed: 4,
-    attack: 0
-  } as Tremolo;
+  const defaultEnvelope = getDefaultEnvelope();
+  const defaultFilter = getDefaultFilter();
+  const defaultDelay = getDefaultDelay();
+  const defaultVibrato = getDefaultVibrato();
+  const defaultTremolo = getDefaultTremolo();
 
   return {
     source: 'sine',
-    volume: 1.0,
+    volume: 0.1,
     pitch: 'A4',
     detune: 0,
     panning: 0,
     env: defaultEnvelope,
     filter: defaultFilter,
-    reverb: defaultReverb,
+    // reverb: defaultReverb,
     delay: defaultDelay,
     vibrato: defaultVibrato,
     tremolo: defaultTremolo
@@ -103,9 +67,9 @@ const inputs = [
   sourceInput,
   volumeInput,
   pitchInput,
+  detuneInput,
   envelopeInput,
   filterInput,
-  reverbInput,
   delayInput,
   vibratoInput,
   tremoloInput
@@ -117,19 +81,6 @@ export default class SynthesizerNode extends BaseNode<SynthInput, Synthesizer> {
   public wad: Wad;
   constructor() {
     super(inputs, null, 'Synthesizer');
-    // const {
-    //   source,
-    //   volume,
-    //   pitch,
-    //   detune,
-    //   panning,
-    //   env,
-    //   filter,
-    //   reverb,
-    //   delay,
-    //   vibrato,
-    //   tremolo
-    // } = getDefaultSynthesizer();
     this.wad = new Wad({...getDefaultSynthesizer()});
   }
   public calc(
@@ -138,23 +89,20 @@ export default class SynthesizerNode extends BaseNode<SynthInput, Synthesizer> {
     volume: number,
     pitch: string,
     detune: number,
-    panning: number,
     env: Envelope,
     filter: Filter,
-    reverb: Reverb,
     delay: Delay,
     vibrato: Vibrato,
     tremolo: Tremolo,
-  ): Synthesizer {
+  ) {
     const update = {
       source,
       volume,
       pitch,
       detune,
-      panning,
+      // panning,
       env,
       filter,
-      reverb,
       delay,
       vibrato,
       tremolo
@@ -162,10 +110,12 @@ export default class SynthesizerNode extends BaseNode<SynthInput, Synthesizer> {
     for (const key of Object.keys(update)) {
       this.wad[key] = update[key];
     }
-    // this.wad = { ...this.wad, ...update };
+    // this.wad = new Wad({ ...update });
+    console.log(this.wad);
     for (const note of [notes].flat()) {
       const playPitch = typeof(note) === 'string' ? note : convertMidi(note);
-      this.wad.play({ pitch: playPitch });
+      console.log(playPitch);
+      this.wad.play({ env, pitch: playPitch });
     }
     return update;
   }
