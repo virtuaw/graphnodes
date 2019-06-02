@@ -39,9 +39,11 @@ export default class BaseGraph {
    * Add Node to graph
    *
    * @param node: Node to add.
+   * @returns node: The same node.
    */
-  public addNode(node: BaseNode<any, any>) {
+  public addNode(node: BaseNode<any, any>): BaseNode<any, any> {
     this.nodes.push(node);
+    return node;
   }
 
   /**

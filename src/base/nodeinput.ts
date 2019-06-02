@@ -11,6 +11,7 @@ export default class NodeInput extends NodeConnector {
   public connection: NodeOutput = null;
   public node: BaseNode<any, any> = null;
   public connectorType = 'input';
+  public active: boolean = false;
 
   /**
    * @param title: The input's title.
@@ -37,11 +38,28 @@ export default class NodeInput extends NodeConnector {
     return !!this.connection;
   }
 
+  get inputValue() {
+    return this.defaultValue;
+  }
+
+  set inputValue(value) {
+    this.defaultValue = value;
+  }
+
   /**
    * @returns value Either the connected node's output or the default value.
    */
   get value() {
     return this.connected ? this.connection.value : this.defaultValue;
+  }
+
+  /**
+   * Triggering change in the graph.
+   */
+  public trigger(): void {
+    this.active = true;
+    this.node.trigger();
+    setTimeout(() => this.active = false, 500);
   }
 
   /**

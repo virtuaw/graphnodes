@@ -1,44 +1,31 @@
-import { BaseNode, NodeInput } from '../base';
+import { BaseNode, NodeInput, NodeOutput } from '../base';
+import Tone from 'tone';
+
+const inputs = [
+  new NodeInput('Attack', 0.1, 'attack'),
+  new NodeInput('Decay', 0.2, 'decay'),
+  new NodeInput('Sustain', 1, 'sustain'),
+  new NodeInput('Release', 0.8, 'release')
+];
 
 export interface Envelope {
   attack: number;
   decay: number;
   sustain: number;
-  hold: number;
   release: number;
 }
 
 export function getDefaultEnvelope() {
-  return {
-    attack: 0.5,
-    decay: 1.0,
-    sustain: 0.0,
-    hold: 3.14,
-    release: 1.0
-  } as Envelope;
+  return { attack: 0.1, decay: 0.2, sustain: 1.0, release: 0.8 };
 }
 
-const defaultEnvelope = getDefaultEnvelope();
-
-const inputs = [
-  new NodeInput('Attack', defaultEnvelope.attack, 'attack'),
-  new NodeInput('Decay', defaultEnvelope.decay, 'decay'),
-  new NodeInput('Sustain', defaultEnvelope.sustain, 'sustain'),
-  new NodeInput('Hold', defaultEnvelope.hold, 'hold'),
-  new NodeInput('Release', defaultEnvelope.release, 'release')
-];
-
-export default class EnvelopeNode extends BaseNode<number[], Envelope> {
+export default class EnvelopeNode extends BaseNode<number, Tone.Envelope> {
+  public envelope: Tone.Envelope;
   constructor() {
     super(inputs, null, 'Envelope');
   }
-  public calc(
-    attack: number,
-    decay: number,
-    sustain: number,
-    hold: number,
-    release: number
-  ): Envelope {
-    return { attack, decay, sustain, hold, release };
+
+  public calc(attack: number, decay: number, sustain: number, release: number): Envelope {
+    return { attack, decay, sustain, release };
   }
 }

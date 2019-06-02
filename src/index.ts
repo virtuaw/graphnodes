@@ -10,6 +10,8 @@ import * as base from './base';
 import * as input from './inputnodes';
 import * as math from './mathnodes';
 import * as audio from './audio';
+import * as ui from './ui';
+import * as modular from './modular';
 
 export {
   BaseGraph,
@@ -18,7 +20,10 @@ export {
   NodeOutput,
   NodeConnector,
   createNode,
+  base,
   input,
   math,
-  audio
+  audio,
+  ui,
+  modular
 };
