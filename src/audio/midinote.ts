@@ -9,7 +9,7 @@ import Wad from 'web-audio-daw';
  * as number from either user or node input.
  */
 
-function convertMidi(note: number) {
+export function convertMidi(note: number) {
   return Wad.pitchesArray[note - 12];
 }
 export default class MidiNoteNode extends BaseNode<number, string> {

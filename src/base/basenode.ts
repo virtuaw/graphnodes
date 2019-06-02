@@ -31,7 +31,7 @@ export default class BaseNode<I, O> implements Node<I, O> {
   }
   get i(): { [index: string]: NodeInput } {
     const inputObject = {};
-    this.inputs.map((input) => inputObject[input.title] = input);
+    this.inputs.map((input) => inputObject[input.key] = input);
     return inputObject;
   }
 

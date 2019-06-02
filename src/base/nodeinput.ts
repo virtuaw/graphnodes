@@ -15,6 +15,7 @@ export default class NodeInput extends NodeConnector {
   /**
    * @param title: The input's title.
    * @param defaultValue: The default value.
+   * @param key: Optional string to be used as key instead of the title.
    * @param allowInput: Whether to allow setting the value directly via user input.
    * @param allowConnection: Whether to allow a connection from other nodes.
    */
