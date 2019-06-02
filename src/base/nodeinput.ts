@@ -21,10 +21,12 @@ export default class NodeInput extends NodeConnector {
   constructor(
     public title: string = 'Input',
     public defaultValue: any = null,
-    public allowInput: boolean = false,
+    public key?: string,
+    public allowInput: boolean = true,
     public allowConnection: boolean = true,
   ) {
     super();
+    this.key = key || this.title.trim().toLowerCase();
   }
 
   /**
@@ -50,7 +52,9 @@ export default class NodeInput extends NodeConnector {
    *                   was successful.
    */
   public connect(output): boolean {
-    if (output.isInput || this.connection === output) {
+    if (output.isInput
+        || this.connection === output
+        || this.node.descendants.includes(output.node)) {
       return false;
     }
 

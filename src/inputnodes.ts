@@ -10,12 +10,12 @@ export class InputNode<T> extends BaseNode<T, T> {
 
 export class StringNode extends InputNode<string> {
   public inputs = [
-    new NodeInput('String', '', true, false)
+    new NodeInput('String', '', 'string', true, false)
   ];
 }
 
 export class NumberNode extends InputNode<number> {
   public inputs = [
-    new NodeInput('Number', 0, true, false)
+    new NodeInput('Number', 0, 'number', true, false)
   ];
 }

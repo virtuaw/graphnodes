@@ -17,7 +17,7 @@ export default class MidiNoteNode extends BaseNode<number, string> {
     title: string = 'Midi Note'
   ) {
     super(
-      [new NodeInput('midi', note, true, true)],
+      [new NodeInput('Midi Value', note, 'midiValue')],
       convertMidi,
       title
     );

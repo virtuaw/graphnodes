@@ -48,13 +48,16 @@ export default class NodeOutput extends NodeConnector {
    *                   was successful.
    */
   public connect(input): boolean {
-    if (input.isOutput || !input.allowConnection) {
+    if (input.isOutput || !input.allowConnection || this.node.descendants.includes(input.node)) {
       return false;
     }
 
     if (input.connection !== this) {
-      input.connect(this);
-      this.connections.push(input);
+      const success = input.connect(this);
+      if (success) {
+        this.connections.push(input);
+      }
+      return success;
     }
     return true;
   }

@@ -1,5 +1,5 @@
 import BaseGraph from './basegraph';
-import BaseNode from './basenode';
+import BaseNode, { createNode } from './basenode';
 import NodeInput from './nodeinput';
 
-export { BaseGraph, BaseNode, NodeInput };
+export { BaseGraph, BaseNode, createNode, NodeInput };

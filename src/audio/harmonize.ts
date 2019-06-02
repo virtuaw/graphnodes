@@ -20,7 +20,7 @@ export default class HarmonizeNode extends BaseNode<HarmonizeArgs, HarmonizeResu
     title: string = 'Harmonize'
   ) {
     super(
-      [new NodeInput('note', 0, true, true), new NodeInput('intervals', intervals, true, true)],
+      [new NodeInput('note', 12), new NodeInput('intervals', intervals)],
       harmonize,
       title
     );

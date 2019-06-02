@@ -39,6 +39,9 @@ test('Connecting/Disconnecting two Nodes', () => {
   expect(testNodeB.inputs[0].connection).toBe(null);
 });
 
+function identity(a) {
+  return a;
+}
 function add(a, b) {
   return a + b;
 }
@@ -58,7 +61,6 @@ function getThirteen() {
   return 13;
 }
 function consoleLog(value) {
-  console.log(value);
   return value;
 }
 test('Convert Function to Node', () => {
@@ -68,7 +70,7 @@ test('Convert Function to Node', () => {
   const sevenNode = createNode(getSeven);
 
   expect(additionNode.title).toBe('add');
-  expect(additionNode.inputs[0].title).toBe('a');
+  expect(additionNode.i.a.title).toBe('a');
 
   fiveNode.output.connect(additionNode.inputs[0]);
   sevenNode.output.connect(additionNode.inputs[1]);
@@ -105,4 +107,33 @@ test('Triggering nodes', (done) => {
   consoleLogNode.output.connect(checkTriggerNode.inputs[0]);
 
   consoleLogNode.trigger();
+});
+
+test('Counting Descendants', () => {
+  const parentNode = createNode(getFive);
+  const childOne = createNode(identity);
+  const childTwo = createNode(multiply);
+  const childThree = createNode(identity);
+
+  parentNode.o.connect(childOne.i.a);
+  childOne.o.connect(childTwo.i.a);
+  parentNode.o.connect(childTwo.i.b);
+  childTwo.o.connect(childThree.i.a);
+
+  expect(parentNode.descendants.length).toBe(4);
+  expect(childOne.descendants.length).toBe(3);
+  expect(childThree.descendants.length).toBe(1);
+});
+
+test('Disallowing Circular Connections', () => {
+  const nodeOne = createNode(identity);
+  const nodeTwo = createNode(identity);
+  const nodeThree = createNode(identity);
+
+  nodeOne.o.connect(nodeTwo.i.a);
+  nodeTwo.o.connect(nodeThree.i.a);
+
+  expect(nodeThree.o.connect(nodeOne.i.a)).toBe(false);
+  expect(nodeThree.o.connected).toBe(false);
+  expect(nodeThree.o.connections.length).toBe(0);
 });

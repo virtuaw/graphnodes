@@ -35,12 +35,17 @@ export default class BaseNode<I, O> implements Node<I, O> {
     return inputObject;
   }
 
-  get inputValues() {
+  get inputValues(): any[] {
     return this.inputs.map((input) => input.value);
   }
 
+  get descendants(): Array<BaseNode<any, any>> {
+    return this.output.connections.reduce<Array<BaseNode<any, any>>>((desc, conn) => {
+      return desc.concat(conn.node.descendants.filter((node) => !desc.includes(node)));
+    }, [this] as Array<BaseNode<any, any>>);
+  }
+
   public calc(...args: any): any {
-    console.log('calc');
     return args;
   }
 
@@ -75,7 +80,7 @@ export function createNode(
   title?: string
 ) {
   const nodeTitle = title || func.name;
-  const nodeInputs = inputs || getArgs(func).map((arg) => new NodeInput(arg, 0, true, true));
+  const nodeInputs = inputs || getArgs(func).map(([arg, val = 0]) => new NodeInput(arg, val));
 
   return new BaseNode(nodeInputs, func, nodeTitle);
 }
