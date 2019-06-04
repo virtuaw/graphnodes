@@ -1,8 +1,12 @@
 import { BaseNode, NodeInput } from '../base';
 
+const inputs = [
+  new NodeInput('Visualize Notes', [], 'notes')
+];
+
 export default class InstrumentNode extends BaseNode<any, number[]> {
   constructor(public activeNotes: number[] = []) {
-    super([], null, 'Instrument');
+    super(inputs, null, 'Instrument');
   }
 
   public noteOn(note: number) {
@@ -12,11 +16,14 @@ export default class InstrumentNode extends BaseNode<any, number[]> {
 
   public noteOff(note: number) {
     this.activeNotes = this.activeNotes.filter((n) => note !== n);
+    this.trigger();
   }
 
-  public call() {
-    if (this.activeNotes.length >= 1) {
-      return this.activeNotes;
-    }
+  public getExternalNotes(notes: number[] | number): number[] {
+    return [this.inputValues[0]].flat();
+  }
+
+  public calc(...args) {
+    return this.activeNotes;
   }
 }

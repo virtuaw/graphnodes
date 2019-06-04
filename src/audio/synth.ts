@@ -4,18 +4,17 @@ import { MidiNote } from './note';
 
 import Tone from 'tone';
 
-const inputs = [
-  new NodeInput('Note', 32, 'note'),
-  new NodeInput('Length', 0.2, 'length'),
-  new NodeInput('Volume', -15.0, 'volume'),
-  new NodeInput('Envelope', getDefaultEnvelope(), 'envelope', false),
-  new NodeInput('Portamento', 0.2, 'portamento'),
-];
-
 export default class SynthNode extends BaseNode<string | number, Tone.Midi[]> {
   public synth: Tone.Synth;
   constructor() {
-    super(inputs, null, 'Tone Synth');
+    const inputs = [
+      new NodeInput('Note', 32, 'note'),
+      new NodeInput('Length', 0.2, 'length'),
+      new NodeInput('Volume', -15.0, 'volume'),
+      new NodeInput('Envelope', getDefaultEnvelope(), 'envelope', false),
+      new NodeInput('Portamento', 0.2, 'portamento'),
+    ];
+    super(inputs, null, 'Synth');
     this.synth = new Tone.Synth({
       type: 'fmsquare',
       modulationType: 'sawtooth',
