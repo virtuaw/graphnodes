@@ -17,7 +17,8 @@ export default class NodeOutput extends NodeConnector {
    */
   constructor(
     public node: BaseNode<any, any>,
-    public title: string = 'Output'
+    public title: string = 'Output',
+    public enabled: boolean = true
   ) {
     super();
   }
@@ -36,6 +37,12 @@ export default class NodeOutput extends NodeConnector {
     return this.node.call();
   }
 
+  public trigger() {
+    this.active = true;
+    this.connections.map((connection) => connection.trigger());
+    setTimeout(() => this.active = false, 500);
+  }
+
   /**
    * Connects this output to another input.
    *
@@ -45,17 +52,18 @@ export default class NodeOutput extends NodeConnector {
    *                   was successful.
    */
   public connect(input): boolean {
-    if (input.isOutput || !input.allowConnection || this.node.descendants.includes(input.node)) {
+    if (!this.enabled
+        || input.isOutput
+        || !input.allowConnection
+        || this.node.descendants.includes(input.node)) {
       return false;
     }
 
     if (input.connection !== this) {
-      const success = input.connect(this);
-      if (success) {
-        this.connections.push(input);
-      }
-      return success;
+      input.connect(this);
     }
+    // this.connections.filter((connection) => connection !== input);
+    this.connections.push(input);
     return true;
   }
 
@@ -75,4 +83,5 @@ export default class NodeOutput extends NodeConnector {
   public disconnectAll() {
     this.connections.map((conn) => conn.disconnect());
   }
+
 }

@@ -15,6 +15,7 @@ export default class BaseNode<I, O> implements Node<I, O> {
   public title = 'Base Node';
   public inputs: NodeInput[] = [];
   public output: NodeOutput = null;
+  public id: number;
 
   constructor(inputs?, calc?, title?, output?) {
     this.inputs = inputs || this.inputs;
@@ -23,6 +24,8 @@ export default class BaseNode<I, O> implements Node<I, O> {
     this.title =  title || this.title;
 
     this.inputs.map((input) => input.node = this);
+
+    this.id = Math.round(Math.random() * 100000);
   }
 
   // Shorthand
@@ -57,7 +60,7 @@ export default class BaseNode<I, O> implements Node<I, O> {
   // or terminates at this node with a call.
   public trigger() {
     if (this.output.connected) {
-      this.output.connections.map((connection) => connection.node.trigger());
+      this.output.trigger();
     } else {
       this.call();
     }
