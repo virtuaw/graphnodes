@@ -6,30 +6,31 @@ import * as input from '../inputnodes';
  *
  * Takes as input value a Tone.Note and an Interval of halftone steps and returns a harmonized chord
  *
- * @param note A Tone.Note instance.
- * @param interval An array of halftone steps as numbers.
+ * @param note: A note given as midi value
+ * @param interval An array of halftone steps as midi value intervals.
  *
- * @returns chord The Chord as Array of Tone.Notes
+ * @returns chord The chord as array of Tone.Notes
  */
 
-function harmonize(note, intervals) {
-  return intervals.map((interval) => note + interval);
-}
+type HarmonizeArgs = number | number[];
+type HarmonizeResult = number[];
+
 export default class HarmonizeNode extends BaseNode<HarmonizeArgs, HarmonizeResult> {
   constructor(
     intervals: number[] = [0, 3, 5],
     title: string = 'Harmonize'
   ) {
-    super(
-      [new NodeInput('note', 12), new NodeInput('intervals', intervals)],
-      harmonize,
-      title
-    );
+    const inputs = [
+      new NodeInput('note', 12),
+      new NodeInput('intervals', intervals)
+    ];
+    super(inputs, null, title);
+  }
+
+  public calc(note: number, intervals: number[]): number[] {
+    return intervals.map((interval) => note + interval);
   }
 }
-
-type HarmonizeArgs = number | number[];
-type HarmonizeResult = number[];
 
 export function createHarmonizeNode(intervals: number[] = [0, 3, 5], title: string = 'Harmonize') {
   return new HarmonizeNode(intervals, title);

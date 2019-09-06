@@ -48,22 +48,38 @@ export default class BaseNode<I, O> implements Node<I, O> {
     }, [this] as Array<BaseNode<any, any>>);
   }
 
+  public call() {
+    this.beforeCall();
+    this.update();
+    this.afterCall();
+  }
+
+  public update() {
+    this.output.setValue(this.calc(...this.inputValues));
+  }
+
+  public trigger() {
+    if (this.output.connected) {
+      this.output.trigger();
+    }
+    this.call();
+  }
+
+  /**
+   * The computation of the node.
+   * This should be left pure, as any side effects can be implemented
+   * using the beforeCall and afterCall methods.
+   */
   public calc(...args: any): any {
     return args;
   }
 
-  public call() {
-    return this.calc(...this.inputValues);
+  public beforeCall() {
+    return;
   }
 
-  // Trigger call either propagates to connected output nodes if there are any
-  // or terminates at this node with a call.
-  public trigger() {
-    if (this.output.connected) {
-      this.output.trigger();
-    } else {
-      this.call();
-    }
+  public afterCall() {
+    return;
   }
 }
 
@@ -83,7 +99,9 @@ export function createNode(
   title?: string
 ) {
   const nodeTitle = title || func.name;
-  const nodeInputs = inputs || getArgs(func).map(([arg, val = 0]) => new NodeInput(arg, val));
+  const nodeInputs = inputs || getArgs(func).map(([arg, val = 0]) => {
+    return new NodeInput(null, arg, val);
+  });
 
   return new BaseNode(nodeInputs, func, nodeTitle);
 }

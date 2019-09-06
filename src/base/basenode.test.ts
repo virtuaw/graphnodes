@@ -21,24 +21,6 @@ test('Base Node with inputs', () => {
   expect(testNode.inputs.length).toBe(2);
 });
 
-test('Connecting/Disconnecting two Nodes', () => {
-  const nodeInput = new NodeInput();
-
-  const testNodeA = new BaseNode();
-  const testNodeB = new BaseNode([nodeInput]);
-
-  testNodeA.output.connect(testNodeB.inputs[0]);
-
-  expect(testNodeA.output.connections[0]).toBe(testNodeB.inputs[0]);
-  expect(testNodeA.output.connections.length).toBe(1);
-  expect(testNodeB.inputs[0].connection).toBe(testNodeA.output);
-
-  testNodeA.output.disconnectAll();
-
-  expect(testNodeA.output.connections.length).toBe(0);
-  expect(testNodeB.inputs[0].connection).toBe(null);
-});
-
 function identity(a) {
   return a;
 }
@@ -75,7 +57,8 @@ test('Convert Function to Node', () => {
   fiveNode.output.connect(additionNode.inputs[0]);
   sevenNode.output.connect(additionNode.inputs[1]);
 
-  expect(additionNode.call()).toBe(12);
+  additionNode.call();
+  expect(additionNode.output.value).toBe(12);
 });
 
 test('Triggering nodes', (done) => {
